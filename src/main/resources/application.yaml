@@ -1,0 +1,15 @@
+bot:
+  name: City guide
+  token: 1868298123:AAGDjeXj8ZG0j89GU-AytWRasSa3jnEMvhE
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pasha
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: never
+    username: pasha
+    password: qwe
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update

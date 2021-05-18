@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example</groupId>
+  <artifactId>TripBot</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <java.version>14</java.version>
+    <maven.compiler.source>14</maven.compiler.source>
+    <maven.compiler.target>14</maven.compiler.target>
+    <java.version>14</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <spring-boot.version>2.2.4.RELEASE</spring-boot.version>
+
+    <telegrambots-spring.version>0.22</telegrambots-spring.version>
+
+    <hibernate.version>5.4.18.Final</hibernate.version>
+
+    <postgresql.version>42.2.20</postgresql.version>
+
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.github.xabgesagtx</groupId>
+      <artifactId>telegram-spring-boot-starter</artifactId>
+      <version>${telegrambots-spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <version>${spring-boot.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.16</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>5.2.15.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <version>2.2.13.RELEASE</version>
+    </dependency>
+
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.3.10.RELEASE</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
+</project>
