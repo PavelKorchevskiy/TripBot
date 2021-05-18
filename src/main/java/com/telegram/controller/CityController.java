@@ -18,47 +18,51 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class CityController {
 
-  private final CityRepository cityRepository;
+  private final CityRepository repository;
 
   @GetMapping("/cities")
   List<City> getAll() {
     log.info("Запрос на получение всех городов");
-    return cityRepository.findAll();
+    return repository.findAll();
   }
 
   @GetMapping("/city/{id}")
   City getById(@PathVariable Long id) {
     log.info("Запрос на получение города с id - " + id);
-    return cityRepository.findById(id)
+    return repository.findById(id)
         .orElseThrow(() -> new CityNotFoundException("City with id " + id + " not found"));
   }
 
   @PostMapping("/city")
   City save(@RequestBody City city) {
     log.info("Запрос на сохранение города");
-    return cityRepository.save(city);
+    return repository.save(city);
   }
 
   @PutMapping("/city/{id}")
   City replaceCity(@RequestBody City newCity, @PathVariable Long id) {
     log.info("Запрос на изменение данных города");
-    return cityRepository.findById(id).map(city -> {
-      city.setName(newCity.getName());
-      city.setInformation(newCity.getInformation());
-      return cityRepository.save(city);
+    return repository.findById(id).map(existCity -> {
+      existCity.setName(newCity.getName());
+      existCity.setInformation(newCity.getInformation());
+      return repository.save(existCity);
     }).orElseGet(() -> {
       log.info("Город с таким id не найден, сохранение нового города");
-      return cityRepository.save(newCity);});
+      return repository.save(newCity);
+    });
   }
 
   @DeleteMapping("/city/{id}")
   void delete(@PathVariable Long id) {
+    if (repository.findById(id).isEmpty()) {
+      throw new CityNotFoundException("City with id " + id + " not found");
+    }
     log.info("Запрос на удаление города");
-    cityRepository.deleteById(id);
+    repository.deleteById(id);
   }
 
   @Autowired
-  public CityController(CityRepository cityRepository) {
-    this.cityRepository = cityRepository;
+  public CityController(CityRepository repository) {
+    this.repository = repository;
   }
 }

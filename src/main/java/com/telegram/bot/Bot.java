@@ -34,19 +34,31 @@ public class Bot extends TelegramLongPollingBot {
   @Override
   public void onUpdateReceived(Update update) {
     String userMessage = update.getMessage().getText();
-    Optional<City> cityOptional = repository.findByName(userMessage);
     SendMessage message = new SendMessage();
-   message.setChatId(String.valueOf(update.getMessage().getChatId()));
-   if (cityOptional.isPresent()) {
-     message.setText(cityOptional.get().getInformation());
-   } else {
-     message.setText("Hm, ok. And?");
-   }
+    message.setChatId(String.valueOf(update.getMessage().getChatId()));
+    if (userMessage.equals("/help")) {
+      message.setText(getHelpMessage());
+    } else {
+      Optional<City> cityOptional = repository.findByName(userMessage);
+      if (cityOptional.isPresent()) {
+        message.setText(cityOptional.get().getInformation());
+      } else {
+        message.setText("Информация по данному городу отсутствует. "
+            + "Если необходима помощь отправте /help");
+      }
+    }
     try {
       execute(message);
     } catch (TelegramApiException e) {
       e.printStackTrace();
     }
+  }
+
+  private String getHelpMessage() {
+    StringBuilder builder = new StringBuilder("Введите название города,"
+        + " информацию о котором хотите узнать. Список всех доступных городов: ");
+    repository.findAll().forEach(city -> builder.append(city.getName()).append(", "));
+    return builder.substring(0, builder.lastIndexOf(","));
   }
 
   @Autowired

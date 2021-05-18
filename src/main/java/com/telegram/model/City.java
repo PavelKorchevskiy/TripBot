@@ -25,5 +25,4 @@ public class City {
   private String name;
   @Column(name = "information")
   private String information;
-
 }

@@ -11,5 +11,4 @@ public class App {
     ApiContextInitializer.init();
     SpringApplication.run(App.class, args);
   }
-
 }
